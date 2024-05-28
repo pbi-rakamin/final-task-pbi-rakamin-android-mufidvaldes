@@ -49,4 +49,5 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             }
         }
     }
+
 }
