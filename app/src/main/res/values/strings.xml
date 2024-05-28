@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NewsApp-APi</string>
+    <string name="home">Home</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="title">Title</string>
+    <string name="published_date">Published Date</string>
+    <string name="save_bookmark">Save Bookmark?</string>
+    <string name="top_headlines">Top Headlines</string>
+    <string name="all_news">All News</string>
+    <string name="headline">Berita Terkini</string>
+    <string name="semua_berita">Semua Berita</string>
+    <string name="author">author</string>
+</resources>
