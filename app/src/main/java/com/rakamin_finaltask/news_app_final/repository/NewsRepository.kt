@@ -28,9 +28,9 @@ class NewsRepository {
         return data
     }
 
-    fun getEverything(query: String, apiKey: String): LiveData<List<ArticlesItem>> {
+    fun getEverything(query: String, apiKey: String, page: Int): LiveData<List<ArticlesItem>> {
         val data = MutableLiveData<List<ArticlesItem>>()
-        apiService.getEverything(query, apiKey).enqueue(object : Callback<NewsResponse> {
+        apiService.getEverything(query, apiKey, page).enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
                     data.value = response.body()?.articles

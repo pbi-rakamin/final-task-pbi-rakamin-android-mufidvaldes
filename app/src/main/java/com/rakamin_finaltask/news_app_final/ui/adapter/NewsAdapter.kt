@@ -21,6 +21,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         articles.addAll(newArticles)
         notifyDataSetChanged()
     }
+    fun addItems(newArticles: List<ArticlesItem>) {
+        val startPosition = articles.size
+        articles.addAll(newArticles)
+        notifyItemRangeInserted(startPosition, newArticles.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)

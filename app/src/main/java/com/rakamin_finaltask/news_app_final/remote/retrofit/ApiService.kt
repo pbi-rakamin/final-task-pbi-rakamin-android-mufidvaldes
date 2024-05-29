@@ -15,6 +15,7 @@ interface ApiService {
     @GET("everything")
     fun getEverything(
         @Query("q") query: String,
-        @Query("apiKey") apiKey: String
+        @Query("apiKey") apiKey: String,
+        @Query("page") page: Int
     ): Call<NewsResponse>
 }
