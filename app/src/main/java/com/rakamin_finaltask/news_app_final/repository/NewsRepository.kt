@@ -1,3 +1,4 @@
+// NewsRepository.kt
 package com.rakamin_finaltask.news_app_final.repository
 
 import androidx.lifecycle.LiveData
@@ -18,6 +19,8 @@ class NewsRepository {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
                     data.value = response.body()?.articles
+                } else {
+                    data.value = emptyList()
                 }
             }
 
@@ -28,12 +31,14 @@ class NewsRepository {
         return data
     }
 
-    fun getEverything(query: String, apiKey: String, page: Int): LiveData<List<ArticlesItem>> {
+    fun getEverything(query: String, apiKey: String, page: Int, pageSize: Int = 20): LiveData<List<ArticlesItem>> {
         val data = MutableLiveData<List<ArticlesItem>>()
-        apiService.getEverything(query, apiKey, page).enqueue(object : Callback<NewsResponse> {
+        apiService.getEverything(query, apiKey, page, pageSize).enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
                     data.value = response.body()?.articles
+                } else {
+                    data.value = emptyList()
                 }
             }
 

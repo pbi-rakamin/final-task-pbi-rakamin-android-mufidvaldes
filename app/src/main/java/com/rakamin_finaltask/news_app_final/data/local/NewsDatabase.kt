@@ -1,3 +1,4 @@
+// NewsDatabase.kt
 package com.rakamin_finaltask.news_app_final.data.local
 
 import android.content.Context
@@ -18,7 +19,7 @@ abstract class NewsDatabase : RoomDatabase() {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext,
                     NewsDatabase::class.java, "News.db"
-                ).build()
+                ).build().also { instance = it }
             }
     }
 }

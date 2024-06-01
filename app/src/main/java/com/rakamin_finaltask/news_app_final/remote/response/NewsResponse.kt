@@ -1,3 +1,4 @@
+//news response
 package com.rakamin_finaltask.news_app_final.remote.response
 
 import android.os.Parcelable

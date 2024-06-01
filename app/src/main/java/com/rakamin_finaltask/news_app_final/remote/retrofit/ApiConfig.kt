@@ -1,3 +1,4 @@
+//Api config
 package com.rakamin_finaltask.news_app_final.remote.retrofit
 
 import okhttp3.OkHttpClient

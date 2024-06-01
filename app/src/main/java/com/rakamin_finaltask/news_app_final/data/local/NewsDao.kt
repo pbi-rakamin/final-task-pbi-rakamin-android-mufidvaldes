@@ -1,3 +1,4 @@
+// NewsDao.kt
 package com.rakamin_finaltask.news_app_final.data.local
 
 import androidx.lifecycle.LiveData
@@ -9,7 +10,7 @@ interface NewsDao {
     @Query("SELECT * FROM news ORDER BY publishedAt DESC")
     fun getNews(): LiveData<List<NewsEntity>>
 
-    @Query("SELECT * FROM news where bookmarked = 1")
+    @Query("SELECT * FROM news WHERE bookmarked = 1")
     fun getBookmarkedNews(): LiveData<List<NewsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

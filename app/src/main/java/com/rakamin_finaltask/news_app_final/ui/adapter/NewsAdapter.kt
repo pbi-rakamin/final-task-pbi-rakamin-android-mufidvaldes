@@ -1,3 +1,4 @@
+// NewsAdapter.kt
 package com.rakamin_finaltask.news_app_final.ui.adapter
 
 import android.annotation.SuppressLint
@@ -6,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.rakamin_finaltask.news_app_final.R
 import com.rakamin_finaltask.news_app_final.databinding.ItemNewsBinding
 import com.rakamin_finaltask.news_app_final.remote.response.ArticlesItem
 import com.rakamin_finaltask.news_app_final.ui.DetailNewsActivity
@@ -21,10 +24,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         articles.addAll(newArticles)
         notifyDataSetChanged()
     }
+
+    @SuppressLint("NotifyDataSetChanged")
     fun addItems(newArticles: List<ArticlesItem>) {
-        val startPosition = articles.size
         articles.addAll(newArticles)
-        notifyItemRangeInserted(startPosition, newArticles.size)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -38,13 +42,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     override fun getItemCount(): Int = articles.size
 
-    class NewsViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NewsViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: ArticlesItem) {
             binding.tvItemTitle.text = article.title
             binding.tvItemPublishedDate.text = DateFormatter.formatDate(article.publishedAt)
             binding.tvAuthor.text = article.author
             Glide.with(binding.imgPoster.context)
                 .load(article.urlToImage)
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                 .into(binding.imgPoster)
 
             binding.root.setOnClickListener {
@@ -54,5 +59,4 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             }
         }
     }
-
 }

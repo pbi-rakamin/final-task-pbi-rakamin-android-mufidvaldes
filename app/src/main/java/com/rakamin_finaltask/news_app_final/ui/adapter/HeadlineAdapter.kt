@@ -1,3 +1,4 @@
+// HeadlineAdapter
 package com.rakamin_finaltask.news_app_final.ui.adapter
 
 import android.annotation.SuppressLint
@@ -5,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.rakamin_finaltask.news_app_final.R
 import com.rakamin_finaltask.news_app_final.databinding.ItemHeadlineBinding
 import com.rakamin_finaltask.news_app_final.remote.response.ArticlesItem
 import com.rakamin_finaltask.news_app_final.utils.DateFormatter
@@ -38,6 +41,9 @@ class HeadlineAdapter : RecyclerView.Adapter<HeadlineAdapter.HeadlineViewHolder>
             binding.tvHeadlineAuthor.text = article.author
             Glide.with(binding.imgHeadline.context)
                 .load(article.urlToImage)
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+                )
                 .into(binding.imgHeadline)
         }
     }

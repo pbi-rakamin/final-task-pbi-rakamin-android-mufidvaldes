@@ -1,3 +1,4 @@
+// MainActivity.kt
 package com.rakamin_finaltask.news_app_final
 
 import android.os.Bundle
@@ -28,17 +29,20 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupViewPager()
+        setupSwipeRefresh()
 
         observeViewModel()
 
+        loadData()
     }
 
     private fun observeViewModel() {
-        viewModel.getTopHeadlines("bccfa96a92a54fce9cd93ec2a8e9f831").observe(this, Observer {
+        val apiKey = "bccfa96a92a54fce9cd93ec2a8e9f831"
+        viewModel.getTopHeadlines(apiKey).observe(this, Observer {
             headlineAdapter.submitList(it)
         })
 
-        viewModel.getEverything("technology", "bccfa96a92a54fce9cd93ec2a8e9f831", currentPage).observe(this, Observer {
+        viewModel.getEverything("technology", apiKey, currentPage).observe(this, Observer {
             newsAdapter.submitList(it)
         })
     }
@@ -64,9 +68,38 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewPager() {
         headlineAdapter = HeadlineAdapter()
         binding.viewPagerHeadline.adapter = headlineAdapter
+        binding.dotsIndicator.setViewPager2(binding.viewPagerHeadline)
     }
+
+    private fun setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshData()
+        }
+    }
+
+    private fun refreshData() {
+        currentPage = 1
+        val apiKey = "bccfa96a92a54fce9cd93ec2a8e9f831"
+        viewModel.getTopHeadlines(apiKey).observe(this, Observer {
+            headlineAdapter.submitList(it)
+            binding.swipeRefreshLayout.isRefreshing = false
+        })
+
+        viewModel.getEverything("technology", apiKey, currentPage).observe(this, Observer {
+            newsAdapter.submitList(it)
+            binding.swipeRefreshLayout.isRefreshing = false
+        })
+    }
+
+    private fun loadData() {
+        val apiKey = "bccfa96a92a54fce9cd93ec2a8e9f831"
+        viewModel.getTopHeadlines(apiKey)
+        viewModel.getEverything("technology", apiKey, currentPage)
+    }
+
     private fun loadMoreNews() {
-        viewModel.getEverything("technology", "bccfa96a92a54fce9cd93ec2a8e9f831", currentPage).observe(this, Observer {
+        val apiKey = "bccfa96a92a54fce9cd93ec2a8e9f831"
+        viewModel.getEverything("technology", apiKey, currentPage).observe(this, Observer {
             newsAdapter.addItems(it)
             isLoading = false
         })

@@ -1,3 +1,4 @@
+// NewsEntity.kt
 package com.rakamin_finaltask.news_app_final.data.entity
 
 import androidx.room.ColumnInfo
@@ -5,20 +6,20 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "news")
-class NewsEntity(
-    @field:ColumnInfo(name = "title")
-    @field:PrimaryKey
+data class NewsEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "title")
     val title: String,
 
-    @field:ColumnInfo(name = "publishedAt")
+    @ColumnInfo(name = "publishedAt")
     val publishedAt: String,
 
-    @field:ColumnInfo(name = "urlToImage")
+    @ColumnInfo(name = "urlToImage")
     val urlToImage: String? = null,
 
-    @field:ColumnInfo(name = "url")
+    @ColumnInfo(name = "url")
     val url: String? = null,
 
-    @field:ColumnInfo(name = "bookmarked")
-    var isBookmarked: Boolean
+    @ColumnInfo(name = "bookmarked")
+    var isBookmarked: Boolean = false
 )
